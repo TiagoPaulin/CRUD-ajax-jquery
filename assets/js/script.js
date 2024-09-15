@@ -10,12 +10,12 @@ $(document).ready(function() {
             price: price
         })
         .done(function(data) {
-            $("#message").html(data);
+            showMessage(data)
             $('#product-form')[0].reset();
             readProducts(); 
         })
         .fail(function() {
-            $("#message").html('Erro ao cadastrar produto');
+            showMessage("Erro ao cadastrar produto")
         });
     }
 
@@ -28,12 +28,12 @@ $(document).ready(function() {
             price : price
         })
         .done(function(data) {
-            $("#message").html(data);
+            showMessage(data)
             $("#product-form")[0].reset();
             readProducts();
         })
         .fail(function(){
-            $("#message").html("Erro ao atualizar produto")
+            showMessage("Erro ao atualizar produto")
         })
 
     }
@@ -55,7 +55,7 @@ $(document).ready(function() {
             });
         })
         .fail(function() {
-            $("#message").html('Erro ao carregar produtos');
+            showMessage("Erro ao carregar produtos")
         });
     }
 
@@ -63,9 +63,18 @@ $(document).ready(function() {
 
         $.post("../controllers/delete.php", {id : id})
         .done(function(data) {
-            $("#message").html(data);
+            showMessage(data)
             readProducts();
         })
+
+    }
+
+    function showMessage(message) {
+        
+        $("#message").html(message)
+        setTimeout(function() {
+            $("#message").empty()
+        }, 1500) 
 
     }
 
