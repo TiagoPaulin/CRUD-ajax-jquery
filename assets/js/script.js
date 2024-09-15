@@ -28,7 +28,7 @@ $(document).ready(function() {
             var tbody = $("#products tbody");
             tbody.empty();
 
-            $.each(products, function(index, product) {
+            $.each(products, function(product) {
                 var row = $('<tr></tr>');
                 row.append(`<td>${product.product_name}</td>`);
                 row.append(`<td>${product.product_description}</td>`);
@@ -42,6 +42,15 @@ $(document).ready(function() {
             $("#message").html('Erro ao carregar produtos');
         });
     }
+
+    $(document).on("click", ".delete", function() {
+        var id = $(this).data('id')
+        $.post("../controllers/delete.php", {id : id})
+        .done(function(data) {
+            $("#message").html(data)
+            readProducts()
+        })
+    })
 
     $("#product-form").on("submit", function(event) {
         event.preventDefault(); 
